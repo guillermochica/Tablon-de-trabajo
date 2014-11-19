@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+		<title>Tablón de trabajo</title>
+	</head>
+	<body align="center">
+
+		<h1> Tablón de trabajo </h1>
+		<p> Crea tablones para organizar las distintas tareas à faire en tus proyectos, tanto individuales como de equipo </p>
+		<p> Cada columna de una tabla representa a un coladorador de tu equipo </p>
+		<p> Podrás asignar a cada colaborador distintas tareas que deben hacer </p>
+		<p> Podrás ver en todo momento si las tareas están terminadas o no </p>
+		<input type="submit" value="Crear tabla" id="creartabla">
+		<p>
+		<form id="formulario">
+			Nombre del proyecto:<br>
+			<input type="text">
+			<br>
+			Jefe del proyecto:<br>
+			<input type="text">
+			<br>
+			Número de colaboradores:<br>
+			<input type="text">
+		</form>
+		<script type='text/javascript'>
+		var x = $(document);
+
+		x.ready(function () {
+			var x;
+
+			$("form").hide();
+
+			x = $("#creartabla").click(function () {
+				x = $("#creartabla").hide("slow");
+				x = $("form").show("slow");
+			});
+
+		});
+		</script>
+
+	</body>
+</html>
