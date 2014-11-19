@@ -5,9 +5,14 @@ var express = require('express');
 var app = express();
 var port = process.argv[2]?process.argv[2]:8080;
 var inicio = fs.readFileSync('inicio.html', 'utf8');
+var tablones = fs.readFileSync('tablones.html', 'utf8');
 
 app.get('/', function (req, res) {
   res.send(inicio);
+});
+
+app.get('/tablon/:project', function (req, res) {
+  res.send(tablones);
 });
 
 app.listen(port);

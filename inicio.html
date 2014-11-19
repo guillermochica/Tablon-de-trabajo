@@ -13,18 +13,21 @@
 		<p> Cada columna de una tabla representa a un coladorador de tu equipo </p>
 		<p> Podrás asignar a cada colaborador distintas tareas que deben hacer </p>
 		<p> Podrás ver en todo momento si las tareas están terminadas o no </p>
+
 		<input type="submit" value="Crear tabla" id="creartabla">
+
 		<p>
+
 		<form id="formulario">
 			Nombre del proyecto:<br>
-			<input type="text">
+			<input type="text" id="nombre">
 			<br>
 			Jefe del proyecto:<br>
-			<input type="text">
-			<br>
-			Número de colaboradores:<br>
-			<input type="text">
+			<input type="text" id="jefe">
 		</form>
+
+		<input type="submit" value="Enviar" id="datos">
+
 		<script type='text/javascript'>
 		var x = $(document);
 
@@ -32,10 +35,12 @@
 			var x;
 
 			$("form").hide();
+			$("#datos").hide();
 
 			x = $("#creartabla").click(function () {
 				x = $("#creartabla").hide("slow");
 				x = $("form").show("slow");
+				x = $("#datos").show("slow");
 			});
 
 		});
