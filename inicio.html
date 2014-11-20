@@ -27,6 +27,8 @@
 		</form>
 
 		<input type="submit" value="Enviar" id="datos">
+		<p id='result'></p>
+
 
 		<script type='text/javascript'>
 		var x = $(document);
@@ -42,6 +44,14 @@
 				x = $("form").show("slow");
 				x = $("#datos").show("slow");
 			});
+
+			$('#datos').click(function () {
+				$.post('/tablon/' + $('#jefe').val() + '/' + $('#nombre').val(), function(data) {
+					$('#result').html(data);
+					$('<a href="tablon/' + $('#jefe').val() + '/' + $('#nombre').val() + '">Ir al tablón</a>').appendTo('body');
+				});
+			});
+
 
 		});
 		</script>
