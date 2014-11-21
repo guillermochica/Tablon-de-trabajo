@@ -12,7 +12,7 @@
 		<p> Crea tablones para organizar las distintas tareas à faire en tus proyectos, tanto individuales como de equipo </p>
 		<p> Cada columna de una tabla representa a un coladorador de tu equipo </p>
 		<p> Podrás asignar a cada colaborador distintas tareas que deben hacer </p>
-		<p> Podrás ver en todo momento si las tareas están terminadas o no </p>
+		<p> ¡Empieza a trabajar! </p>
 
 		<input type="submit" value="Crear tabla" id="creartabla">
 
@@ -24,6 +24,12 @@
 			<br>
 			Jefe del proyecto:<br>
 			<input type="text" id="jefe">
+			<br>
+			Nº de colaboradores:<br>
+			<input type="number" id="colaboradores">
+			<br>
+			Nº de filas:<br>
+			<input type="number" id="filas">
 		</form>
 
 		<input type="submit" value="Enviar" id="datos">
@@ -46,9 +52,10 @@
 			});
 
 			$('#datos').click(function () {
-				$.post('/tablon/' + $('#jefe').val() + '/' + $('#nombre').val(), function(data) {
+				var proyecto = [document.getElementById('colaboradores').value, document.getElementById('filas').value];
+				$.post('/tablon/' + $('#jefe').val() + '/' + $('#nombre').val() + '/' + proyecto, function(data) {
 					$('#result').html(data);
-					$('<a href="tablon/' + $('#jefe').val() + '/' + $('#nombre').val() + '">Ir al tablón</a>').appendTo('body');
+					$('<a href="tablon/' + $('#jefe').val() + '/' + $('#nombre').val() + '/proyecto">Ir al tablón</a>').appendTo('body');
 				});
 			});
 
