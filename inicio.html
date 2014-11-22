@@ -32,7 +32,10 @@
 			<input type="number" id="filas">
 		</form>
 
+		<input type="submit" value="Rellenar tabla" id="rellenar">
 		<input type="submit" value="Enviar" id="datos">
+
+
 		<p id='result'></p>
 
 
@@ -42,23 +45,54 @@
 		x.ready(function () {
 			var x;
 
-			$("form").hide();
+			$("#formulario").hide(); //CAMBIADO
 			$("#datos").hide();
+			$("#rellenar").hide(); //LINEA NUEVA
 
 			x = $("#creartabla").click(function () {
 				x = $("#creartabla").hide("slow");
-				x = $("form").show("slow");
-				x = $("#datos").show("slow");
+				x = $("#formulario").show("slow"); //CAMBIADO
+				x = $("#rellenar").show("slow");
 			});
 
-			$('#datos').click(function () {
-				var proyecto = [document.getElementById('colaboradores').value, document.getElementById('filas').value];
-				$.post('/tablon/' + $('#jefe').val() + '/' + $('#nombre').val() + '/' + proyecto, function(data) {
-					$('#result').html(data);
-					$('<a href="tablon/' + $('#jefe').val() + '/' + $('#nombre').val() + '/proyecto">Ir al tablón</a>').appendTo('body');
-				});
+			$('#rellenar').click(function () { //BLOQUE NUEVO
+				$('#rellenar').hide('fast');
+				string = '<form id="datostabla">';
+				for (i = 1 ; i<= $('#colaboradores').val() ; i++) {
+					string = string + '<br>Nombre del colaborador ' + i + '<br><input type = "text" id="colaborador' + i +'"<br>';
+					for (j = 1 ; j<= $('#filas').val() ; j++) {
+						string = string + '<br>Tarea nº' + j + '<br><input type="text" id="tarea' + i + j + '"<br>';
+					}
+				}
+				string = string + '</form>';
+				$(string).appendTo('body');
+				$("#datos").show();
 			});
 
+			$('#datos').click(function () { //CAMBIADO
+				var proyecto = new Array;
+				proyecto.push($('#colaboradores').val(), $('#filas').val());
+
+				var l = 2;
+				for (k = 1; k<=$('#colaboradores').val() ; k++) {
+					proyecto[l] = new Array; //En la posición 2 (tras el numero de colaboradores y filas) creo un vector con los datos de tabla del colaborador 2 (su nombre y sus tareas)
+					stringColaborador = '#colaborador' + k;
+					proyecto[l].push($(stringColaborador).val()); //Guardo en la primera posición el nombre del colaborador, después iran sus tareas
+
+					for(m = 1 ; m<=$('#filas').val() ; m++) {
+						stringTarea = '#tarea' + k + m;
+
+						proyecto[l].push($(stringTarea).val()); //Voy guardando en el resto de posiciones del vector las distintas tareas
+					}
+					l++;
+				}
+
+					$.post('/tablon/' + $('#jefe').val() + '/' + $('#nombre').val() + '/' + proyecto, function(data) {
+						$('#result').html(data);
+						$('<a href="tablon/' + $('#jefe').val() + '/' + $('#nombre').val() + '/proyecto">Ir al tablón</a>').appendTo('body');
+					});
+
+		});
 
 		});
 		</script>
